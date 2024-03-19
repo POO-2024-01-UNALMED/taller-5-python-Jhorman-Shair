@@ -1,34 +1,35 @@
 from zooAnimales.animal import Animal
 
 class Ave(Animal):
-    halcones=0
-    aguilas=0
-    listado=[]
-    def __init__(self,nombre,edad,habitat,genero,colorPlumas):
-        super.__init__(nombre,edad,habitat,genero)
-        self._colorPlumas=colorPlumas
-        Ave.agregarListado(self)
-        
-    def agregarListado(cls,a):
-        cls.listado.append(a)
+    _listado = []
+    halcones = 0
+    aguilas = 0
     
-    def cantidadPeces(cls):
-        return (len(cls.listado))
+    def __init__(self, nombre, edad, habitat, genero, colorPlumas):
+        super().__init__(nombre, edad, habitat, genero)
+        self._colorPlumas = colorPlumas
+        Ave._listado.append(self)
+
+    @classmethod
+    def cantidadAves(cls):
+        return len(Ave._listado)
     
-    def crearHalcon(cls,nombre,edad,genero):
-        halcon=Ave(nombre,edad,"montanas",genero,"cafe glorioso")
-        cls.halcones+=1
-        Ave.agregarlistado(halcon)
-        return halcon
+    @classmethod
+    def movimiento(cls):
+        return "volar"
     
-    def crearAguila(cls,nombre,edad,genero):
-        aguila=Ave(nombre,edad,"montanas",genero,"blanco y amarillo")
-        cls.aguilas+=1
-        Ave.agregarlistado(aguila)
-        return aguila
-    
+    @classmethod
+    def crearHalcon(cls, nombre, edad, genero):
+        cls.halcones += 1 
+        return cls(nombre, edad, "montanas", genero, "cafe glorioso")
+
+    @classmethod
+    def crearAguila(cls, nombre, edad, genero):
+        cls.aguilas += 1 
+        return cls(nombre, edad, "montanas", genero, "blanco y amarillo")
+
     def getColorPlumas(self):
-        return self._colorEscamas
-    
-    def setColorPlumas(self,colorEscamas):
-        self._colorEscamas=colorEscamas
+        return self._colorPlumas
+
+    def setColorPlumas(self, colorPlumas):
+        self._colorPlumas = colorPlumas
